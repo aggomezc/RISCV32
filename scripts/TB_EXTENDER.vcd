@@ -1,0 +1,47 @@
+$date
+	Fri Nov  1 19:47:08 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module TB_EXTENSION $end
+$var wire 32 ! ExtendedImm [31:0] $end
+$var reg 2 " ImmControl [1:0] $end
+$var reg 32 # Instr [31:0] $end
+$scope module UUT $end
+$var wire 2 $ ImmControl [1:0] $end
+$var wire 32 % Instr [31:0] $end
+$var reg 32 & ExtendedImm [31:0] $end
+$var reg 1 ' Rat $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x'
+bx &
+bx %
+bx $
+bx #
+bx "
+bx !
+$end
+#2
+1'
+b10 "
+b10 $
+b11111111111111111111111111110100 !
+b11111111111111111111111111110100 &
+b11111110010000100000101011100011 #
+b11111110010000100000101011100011 %
+#3
+b1 "
+b1 $
+b1000 !
+b1000 &
+b11001001010010000100011 #
+b11001001010010000100011 %
+#7

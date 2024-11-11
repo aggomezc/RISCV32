@@ -1,0 +1,53 @@
+$date
+	Wed Oct 30 01:32:01 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module TB_ALU $end
+$var wire 2 ! Flag [1:0] $end
+$var wire 32 " ALUresult [31:0] $end
+$var reg 3 # AluControl [2:0] $end
+$var reg 32 $ scrA [31:0] $end
+$var reg 32 % scrB [31:0] $end
+$scope module uut $end
+$var wire 3 & AluControl [2:0] $end
+$var wire 32 ' scrA [31:0] $end
+$var wire 32 ( scrB [31:0] $end
+$var reg 32 ) ALUresult [31:0] $end
+$var reg 2 * Flag [1:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx *
+bx )
+bx (
+bx '
+bx &
+bx %
+bx $
+bx #
+bx "
+bx !
+$end
+#1
+bx1 !
+bx1 *
+b0 "
+b0 )
+b10000000000100 $
+b10000000000100 '
+#2
+b11111111111111111111111111111100 %
+b11111111111111111111111111111100 (
+#3
+b10000000000000 "
+b10000000000000 )
+b0 #
+b0 &
+#13

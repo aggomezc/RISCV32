@@ -1,0 +1,15 @@
+Run the ALU testbench: 
+iverilog -o "OUTPUT-VCDFILES/ALU_OUT" Test\ Benches/TB_ALU.v 
+vvp OUTPUT-VCDFILES/ALU_OUT
+gtkwave TB_ALU.vcd
+
+
+Run the EXTENSION UNIT testbench: 
+iverilog -o  "OUTPUT-VCDFILES/EXTENDER_OUT" Test\ Benches/TB_EXTENDER.v 
+vvp OUTPUT-VCDFILES/EXTENDER_OUT
+gtkwave TB_EXTENDER.vcd
+
+
+
+
+
