@@ -1,7 +1,7 @@
 module DynamicMemory(
     input CLK,
     input WE,
-    input [1:0] funct3,
+    input [2:0] funct3,
     input [31:0] ADDRESS,
     input [31:0] WRITE_DATA,  
     output [31:0] READ_DATA

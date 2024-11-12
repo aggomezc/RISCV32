@@ -4,7 +4,7 @@ module ALU (
     input [31:0] scrB,
     input [2:0] AluControl, //Verily will the ALU only need to add
     output reg [31:0] ALUresult, 
-    output reg [1:0]Flag    //Zero, Carry, Overflow, Sign
+    output reg [2:0]Flag    //Zero, Carry, Overflow, Sign
 );
 parameter ADD = 0;
 parameter SUB = 1;

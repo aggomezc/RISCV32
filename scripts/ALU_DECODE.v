@@ -9,11 +9,11 @@ module ALU_DECODE (
             SUB = 3'b001,
             COMPARE = 3'b100,
             LEFT_SHIFT = 3'b011,
-            ANDD = 3'b010
+            ANDD = 3'b010;
 
-    always @(ALUOP) begin
+    always @ (ALUOP or funct3) begin
         case (ALUOP)
-            SPECIAL begin
+            SPECIAL: begin
                 if (funct3 == ADD) begin    //funct3 removed
                     ALU_Control = ADD;
                 end    
@@ -27,7 +27,7 @@ module ALU_DECODE (
                 end
             end 
 
-            3'b000 begin
+            3'b000: begin
                 ALU_Control = ADD;
             end
             3'b100: ALU_Control = COMPARE;
