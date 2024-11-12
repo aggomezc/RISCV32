@@ -10,6 +10,9 @@ vvp OUTPUT-VCDFILES/EXTENDER_OUT
 gtkwave TB_EXTENDER.vcd
 
 
+Run the Datapath (finished proyect) testbench:
+iverilog -o "OUTPUT-VCDFILES/Datapath_out" Test\ Benches/TB_Datapath.v 
+vvp OUTPUT-VCDFILES/Datapath_out
+gtkwave TB_Datapath.vcd
 
-
-
+Run the Main decoder testbench

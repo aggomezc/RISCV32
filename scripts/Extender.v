@@ -27,7 +27,7 @@ always @(Instr or ImmControl) begin
         B: begin 
             ExtendedImm = {{20{Instr[31]}}, {Instr[7]}, {Instr[30:25]}, {Instr[11:8]}, 1'b0};
         end
-        U: ExtendedImm = {{Instr[31:12]}, 10{1'b0}};
+        U: ExtendedImm = {{Instr[31:12]}, {10{1'b0}}};
         default: ExtendedImm = 0;
 
         endcase

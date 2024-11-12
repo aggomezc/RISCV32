@@ -1,13 +1,13 @@
 module d_flip_flop(
     input  clk,
-    input  d,
+    input [31:0]  d,
     input  rst,
-    output reg q
+    output reg [31:0] q
 );
 
 always @(posedge clk or posedge rst) begin
     if (rst) begin
-        q <= 0;
+        q <= 40;
     end else begin
         q <= d;
     end

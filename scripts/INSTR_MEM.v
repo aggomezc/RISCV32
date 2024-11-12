@@ -7,7 +7,7 @@ module MEM (
 reg [31:0] mem_arr[29:0];
 
 initial begin
-    $readmemh("INSTRS/HEX_FILE_CORRECTO.hexw", mem_arr);
+    $readmemh("INSTRS/HEX_FILE_CORRECTO.hex", mem_arr);
 end
 always @(*) begin
     Instr = mem_arr[PC];

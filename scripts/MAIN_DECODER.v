@@ -7,7 +7,7 @@ module Main_Decoder (
     output reg [1:0]  ImmSrc,
     output reg ALU_src,
     output reg MemWrite,
-    output reg Result_src,
+    output reg [1:0] Result_src,
     output reg Branch,
     output reg [2:0] ALU_op,
     output reg Jump

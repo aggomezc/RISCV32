@@ -10,10 +10,9 @@ module Control_Unit (
     output [1:0]  ImmSrc,
     output ALU_src,
     output MemWrite,
-    output Result_src,
+    output [1:0] Result_src,
     output PC_Src,
     output [2:0] ALU_Control
-
 );
     parameter   ZERO = 0,
                 SIGN = 1,

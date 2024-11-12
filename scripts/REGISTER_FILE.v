@@ -1,7 +1,7 @@
 //`timescale 1ns / 1ps
 
 module REGISTERFILE ( 
-    CLK
+    CLK,
     A1, //dir reg 1
     A2, //dir reg 2
     A3, ////dir reg to write
@@ -13,9 +13,9 @@ module REGISTERFILE (
 //ocupamos un reloj global
     input [4:0] A1, A2, A3;
     input CLK;
-    input WD3, EN;
-    output [31:0] RD1, RD2;
-    //para no sumarle nada a valores XX
+    input [31:0] WD3;
+    input EN;
+    output reg [31:0] RD1, RD2;
     integer i;
     initial begin
 		REGISTER_ARRAY[0] = 0;
@@ -27,8 +27,13 @@ module REGISTERFILE (
 
     reg [31:0] REGISTER_ARRAY [31:0];
     //LECTURA ASINCRONA
-    assign RD1 = REGISTER_ARRAY[A1];
-    assign RD2 = REGISTER_ARRAY[A2];
+    always @(*) begin
+        RD1 = REGISTER_ARRAY[A1];
+        RD2 = REGISTER_ARRAY[A2];
+    end
+
+
+
 
     //escritura sincrona
     always @(posedge CLK ) begin

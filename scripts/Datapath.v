@@ -16,7 +16,7 @@ module Datapath (
 );
 //wires que conectan componentes datapath
 //se limitan a transmitir datos de algun tipo
-reg [31:0] PC;
+//reg [31:0] PC;
 wire [31:0] PCnext;
 wire [31:0] PC_wire;
 wire [31:0] Instruction;
@@ -32,20 +32,20 @@ wire [31:0] Result_wire;
 wire [31:0] Read_Mem_Data;
 //wire que llevan las unidades de control 
 wire PCSrc;
-wire [1:0] Result_Src
+wire [1:0] Result_Src;
 wire MemWrite_Enable;
 wire [2:0] ALU_CONTROL_wire;
 wire ALU_Src;
 wire [1:0] Imm_src;
 wire RegWrite_EN;
 
-
-initial begin
-    PC = 32'b0;
-end
+//should be 12 elements
+// initial begin
+//     PC = 32'b0;
+// end
 
 MEM Instruction_Memory(
-    .PC(PC),
+    .PC(PC_wire),
     .Instr(Instruction)
 );
 REGISTERFILE Register_File(
@@ -58,7 +58,7 @@ REGISTERFILE Register_File(
     .RD2(Reg2_output), // data read from reg 2
     .EN(RegWrite_EN)  //// ENABLE read
     );
-ALU ALU_unit((
+ALU ALU_unit(
     .scrA(SrcA_wire), 
     .scrB(SrcB_wire),
     .AluControl(ALU_CONTROL_wire), //Verily will the ALU only need to add
@@ -79,7 +79,56 @@ EXTENSION Imm_Extender(
     .ImmControl(Imm_src),
     .ExtendedImm(Extended_Imm)
 );
+Control_Unit ControlUnit(
+    .funct3(Instruction[14:12]),
+    .opcode(Instruction[6:0]),
+    .ALU_flags(ALU_Flags),
+    .RegWrite(RegWrite_EN),
+    .ImmSrc(Imm_src),
+    .ALU_src(ALU_Src),
+    .MemWrite(MemWrite_Enable),
+    .Result_src(Result_Src),
+    .PC_Src(PCSrc),
+    .ALU_Control(ALU_CONTROL_wire)
 
+);
 
+MUX3 Result_Mux(
+    .a(ALUResult_wire),
+    .b(Read_Mem_Data),
+    .c(PC_plus_4), //en este caso no importa porque el jal escribe a x0, el cual se ignora
+    .sel(Result_Src),
+    .out(Result_wire)
+);
+//mux de 2 varios: para el ALUSRCB, y el PCNEXT
+MUX2 ALUSRCB_Mux(
+    .a(Reg2_output),
+    .b(Extended_Imm),
+    .sel(ALU_Src),
+    .out(SrcB_wire)
+);
 
+MUX2 PCNEXT_Mux(
+    .a(PC_plus_4),
+    .b(PCTarget),
+    .sel(PCSrc),
+    .out(PCnext)
+);
+
+d_flip_flop PC_FLIPFLOP(
+    .clk(CLK),
+    .d(PCnext),
+    .rst(Reset),
+    .q(PC_wire)
+);
+//Adders
+PC_ADDER PC_PLUS_FOUR(
+    .PC_itself(PC_wire),
+    .pc(PC_plus_4)
+);
+PC_BRANCH_ADDER BRANCH_OFFSET_ADDER(
+    .branch_offset(Extended_Imm),
+    .PC_itself(PC_wire),
+    .pc(PCTarget)
+);
 endmodule

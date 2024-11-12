@@ -4,7 +4,7 @@ module DynamicMemory(
     input [2:0] funct3,
     input [31:0] ADDRESS,
     input [31:0] WRITE_DATA,  
-    output [31:0] READ_DATA
+    output reg [31:0] READ_DATA
     //Lectura asíncrona y escritura sincrona
 );
     parameter sw = 2;
@@ -32,8 +32,6 @@ module DynamicMemory(
         READ_DATA[23:16] = MEMORY_ARRAY[ADDRESS+1];
         READ_DATA[15:8] = MEMORY_ARRAY[ADDRESS+2];
         READ_DATA[7:0] = MEMORY_ARRAY[ADDRESS+3];
-    end
-
     end
 
 endmodule

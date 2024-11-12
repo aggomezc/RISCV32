@@ -3,7 +3,7 @@
 module TB_ALU ();
     reg [31:0] scrA;
     reg [31:0] scrB;
-    reg [2:0] AluControl;//Verily will the ALU only need to add
+    reg [2:0] AluControl;
     wire [31:0] ALUresult;
     wire [1:0]Flag ;
 
