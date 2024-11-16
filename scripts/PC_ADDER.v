@@ -3,7 +3,7 @@ module PC_ADDER(
     output [31:0] pc
 );
 
-    assign pc = PC_itself + 4;
+    assign pc = PC_itself + 1;
 
 
 endmodule

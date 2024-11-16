@@ -1,0 +1,30 @@
+$date
+	Tue Nov 12 18:26:50 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module ALU_DECODE_TB $end
+$var wire 3 ! ALU_Control [2:0] $end
+$var reg 3 " ALUOP [2:0] $end
+$var reg 3 # funct3 [2:0] $end
+$scope module UUT $end
+$var wire 3 $ ALUOP [2:0] $end
+$var wire 3 % funct3 [2:0] $end
+$var reg 3 & ALU_Control [2:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b100 &
+b1 %
+b100 $
+b1 #
+b100 "
+b100 !
+$end
+#1

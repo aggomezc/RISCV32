@@ -36,13 +36,19 @@ wire [1:0] Result_Src;
 wire MemWrite_Enable;
 wire [2:0] ALU_CONTROL_wire;
 wire ALU_Src;
-wire [1:0] Imm_src;
+wire [2:0] Imm_src;
 wire RegWrite_EN;
 
 //should be 12 elements
 // initial begin
 //     PC = 32'b0;
 // end
+d_flip_flop PC_FLIPFLOP(
+    .clk(CLK),
+    .d(PCnext),
+    .rst(Reset),
+    .q(PC_wire)
+);
 
 MEM Instruction_Memory(
     .PC(PC_wire),
@@ -115,12 +121,7 @@ MUX2 PCNEXT_Mux(
     .out(PCnext)
 );
 
-d_flip_flop PC_FLIPFLOP(
-    .clk(CLK),
-    .d(PCnext),
-    .rst(Reset),
-    .q(PC_wire)
-);
+
 //Adders
 PC_ADDER PC_PLUS_FOUR(
     .PC_itself(PC_wire),

@@ -1,0 +1,162 @@
+$date
+	Wed Nov 13 18:59:12 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module Control_Unit_TB $end
+$var wire 2 ! Result_src [1:0] $end
+$var wire 1 " RegWrite $end
+$var wire 1 # PC_Src $end
+$var wire 1 $ MemWrite $end
+$var wire 2 % ImmSrc [1:0] $end
+$var wire 1 & ALU_src $end
+$var reg 3 ' ALU_flags [2:0] $end
+$var reg 3 ( funct3 [2:0] $end
+$var reg 7 ) opcode [6:0] $end
+$scope module UUT $end
+$var wire 3 * ALU_Control [2:0] $end
+$var wire 3 + ALU_flags [2:0] $end
+$var wire 1 & ALU_src $end
+$var wire 2 , ImmSrc [1:0] $end
+$var wire 1 $ MemWrite $end
+$var wire 1 " RegWrite $end
+$var wire 2 - Result_src [1:0] $end
+$var wire 3 . funct3 [2:0] $end
+$var wire 7 / opcode [6:0] $end
+$var wire 2 0 Result_src_intermediate [1:0] $end
+$var wire 1 1 RegWrite_intermediate $end
+$var wire 1 # PC_Src $end
+$var wire 1 2 MemWrite_intermediate $end
+$var wire 1 3 Jump $end
+$var wire 2 4 ImmSrc_intermediate [1:0] $end
+$var wire 1 5 Branch $end
+$var wire 1 6 ALU_src_intermediate $end
+$var wire 3 7 ALU_op [2:0] $end
+$var wire 3 8 ALU_Control_intermediate [2:0] $end
+$scope module Alu_decode $end
+$var wire 3 9 funct3 [2:0] $end
+$var wire 3 : ALUOP [2:0] $end
+$var reg 3 ; ALU_Control [2:0] $end
+$upscope $end
+$scope module main_decoder $end
+$var wire 3 < funct3 [2:0] $end
+$var wire 7 = opcode [6:0] $end
+$var reg 3 > ALU_op [2:0] $end
+$var reg 1 6 ALU_src $end
+$var reg 1 5 Branch $end
+$var reg 2 ? ImmSrc [1:0] $end
+$var reg 1 3 Jump $end
+$var reg 1 2 MemWrite $end
+$var reg 1 1 RegWrite $end
+$var reg 2 @ Result_src [1:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 @
+b0 ?
+b111 >
+b10011 =
+b0 <
+b0 ;
+b111 :
+b0 9
+b0 8
+b111 7
+16
+05
+b0 4
+03
+02
+11
+b0 0
+b10011 /
+b0 .
+b0 -
+b0 ,
+b100 +
+b0 *
+b10011 )
+b0 (
+b100 '
+1&
+b0 %
+0$
+0#
+1"
+b0 !
+$end
+#10
+b0 7
+b0 :
+b0 >
+b1 !
+b1 -
+b1 0
+b1 @
+b0 '
+b0 +
+b10 (
+b10 .
+b10 9
+b10 <
+b11 )
+b11 /
+b11 =
+#20
+bx !
+bx -
+bx 0
+bx @
+1$
+12
+b1 %
+b1 ,
+b1 4
+b1 ?
+0"
+01
+b10 '
+b10 +
+b100011 )
+b100011 /
+b100011 =
+#30
+bx 7
+bx :
+bx >
+b1 !
+b1 -
+b1 0
+b1 @
+0$
+02
+b0 %
+b0 ,
+b0 4
+b0 ?
+1"
+11
+b1 '
+b1 +
+b1 (
+b1 .
+b1 9
+b1 <
+b1100111 )
+b1100111 /
+b1100111 =
+#40
+b10 '
+b10 +
+b101 (
+b101 .
+b101 9
+b101 <
+#50

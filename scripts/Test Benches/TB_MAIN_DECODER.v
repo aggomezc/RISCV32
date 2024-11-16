@@ -1,3 +1,5 @@
+`include "MAIN_DECODER.v"
+
 module TB_MainDecoder;
     reg [6:0] opcode;
     reg [2:0] funct3;
@@ -8,7 +10,7 @@ module TB_MainDecoder;
     wire [1:0] Result_src;
     wire Branch;
     wire [2:0] ALU_op;
-    wire Jum;
+    wire Jump;
 
     Main_Decoder UUT(
         .opcode(opcode),
@@ -33,7 +35,9 @@ module TB_MainDecoder;
         #1
         opcode = 7'b0100011;
         funct3 = 3'b000;
-        
+        #1
+        opcode = 7'b0010011;
+        funct3 = 3'b000;
         #2
         $finish;
     end

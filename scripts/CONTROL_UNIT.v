@@ -7,7 +7,7 @@ module Control_Unit (
     input [2:0] ALU_flags,
 
     output  RegWrite,
-    output [1:0]  ImmSrc,
+    output [2:0]  ImmSrc,
     output ALU_src,
     output MemWrite,
     output [1:0] Result_src,
@@ -23,6 +23,21 @@ module Control_Unit (
     wire Jump;
     wire PC_Src;
 
+
+    wire  RegWrite_intermediate;
+    wire [2:0]  ImmSrc_intermediate;
+    wire ALU_src_intermediate;
+    wire MemWrite_intermediate;
+    wire [1:0] Result_src_intermediate;
+    wire [2:0] ALU_Control_intermediate;
+
+    assign RegWrite = RegWrite_intermediate;
+    assign ImmSrc = ImmSrc_intermediate;
+    assign ALU_src = ALU_src_intermediate;
+    assign MemWrite = MemWrite_intermediate;
+    assign Result_src = Result_src_intermediate;
+    assign ALU_Control = ALU_Control_intermediate;
+    
     assign PC_Src = (ALU_flags[ZERO] & Branch) + 
                     (~ALU_flags[SIGN] & Branch) + 
                     (ALU_flags[CMP_flag] & Branch) + 
@@ -31,11 +46,11 @@ module Control_Unit (
     Main_Decoder main_decoder (
         .opcode(opcode),
         .funct3(funct3),
-        .RegWrite(RegWrite),
-        .ImmSrc(ImmSrc),
-        .ALU_src(ALU_src),
-        .MemWrite(MemWrite),
-        .Result_src(Result_src),
+        .RegWrite(RegWrite_intermediate),
+        .ImmSrc(ImmSrc_intermediate),
+        .ALU_src(ALU_src_intermediate),
+        .MemWrite(MemWrite_intermediate),
+        .Result_src(Result_src_intermediate),
         .Branch(Branch),
         .ALU_op(ALU_op),
         .Jump(Jump)
@@ -43,6 +58,6 @@ module Control_Unit (
     ALU_DECODE Alu_decode(
         .ALUOP(ALU_op),
         .funct3(funct3),
-        .ALU_Control(ALU_Control)
+        .ALU_Control(ALU_Control_intermediate)
     );
 endmodule

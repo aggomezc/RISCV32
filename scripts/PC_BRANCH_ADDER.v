@@ -5,7 +5,7 @@ module PC_BRANCH_ADDER(
     output  [31:0] pc
 );
 
-    assign pc = PC_itself + branch_offset;
+    assign pc = (PC_itself + (branch_offset >> 2)) & 32'h0000FFFF ;
 
 
 endmodule

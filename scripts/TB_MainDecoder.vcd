@@ -1,0 +1,78 @@
+$date
+	Tue Nov 12 18:10:16 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module TB_MainDecoder $end
+$var wire 2 ! Result_src [1:0] $end
+$var wire 1 " RegWrite $end
+$var wire 1 # MemWrite $end
+$var wire 1 $ Jump $end
+$var wire 2 % ImmSrc [1:0] $end
+$var wire 1 & Branch $end
+$var wire 1 ' ALU_src $end
+$var wire 3 ( ALU_op [2:0] $end
+$var reg 3 ) funct3 [2:0] $end
+$var reg 7 * opcode [6:0] $end
+$scope module UUT $end
+$var wire 3 + funct3 [2:0] $end
+$var wire 7 , opcode [6:0] $end
+$var reg 3 - ALU_op [2:0] $end
+$var reg 1 ' ALU_src $end
+$var reg 1 & Branch $end
+$var reg 2 . ImmSrc [1:0] $end
+$var reg 1 $ Jump $end
+$var reg 1 # MemWrite $end
+$var reg 1 " RegWrite $end
+$var reg 2 / Result_src [1:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx /
+bx .
+bx -
+bx ,
+bx +
+bx *
+bx )
+bx (
+x'
+x&
+bx %
+x$
+x#
+x"
+bx !
+$end
+#1
+0$
+b0 (
+b0 -
+0&
+1#
+1'
+b1 %
+b1 .
+0"
+b0 )
+b0 +
+b100011 *
+b100011 ,
+#2
+b111 (
+b111 -
+b0 !
+b0 /
+0#
+b0 %
+b0 .
+1"
+b10011 *
+b10011 ,
+#4

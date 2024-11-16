@@ -7,7 +7,7 @@ module d_flip_flop(
 
 always @(posedge clk or posedge rst) begin
     if (rst) begin
-        q <= 40;
+        q <= 0;
     end else begin
         q <= d;
     end

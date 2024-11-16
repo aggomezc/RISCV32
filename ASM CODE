@@ -1,0 +1,70 @@
+OMPILED_PROYECT.o:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+#include <stdio.h>
+
+int main(){
+   0:	fe010113          	addi	sp,sp,-32
+   4:	00812e23          	sw	s0,28(sp)
+   8:	02010413          	addi	s0,sp,32
+  int *r = 0xC7DF;
+   c:	0000c7b7          	lui	a5,0xc
+  10:	7df78793          	addi	a5,a5,2015 # c7df <.LASF13+0xc745>
+  14:	fef42223          	sw	a5,-28(s0)
+  char a = 'c';
+  18:	06300793          	li	a5,99
+  1c:	fef401a3          	sb	a5,-29(s0)
+  int b = 33;
+  20:	02100793          	li	a5,33
+  24:	fef42623          	sw	a5,-20(s0)
+
+00000028 <.LBB2>:
+
+  for (int i=0; i<2; i++) {
+  28:	fe042423          	sw	zero,-24(s0)
+  2c:	03c0006f          	j	68 <.L2>
+
+00000030 <.L5>:
+    if (i==0){
+  30:	fe842783          	lw	a5,-24(s0)
+  34:	00079863          	bnez	a5,44 <.L3>
+      a = 'b';
+  38:	06200793          	li	a5,98
+  3c:	fef401a3          	sb	a5,-29(s0)
+  40:	01c0006f          	j	5c <.L4>
+
+00000044 <.L3>:
+    }
+    else{
+      b = b<<1;
+  44:	fec42783          	lw	a5,-20(s0)
+  48:	00179793          	slli	a5,a5,0x1
+  4c:	fef42623          	sw	a5,-20(s0)
+      b = b&0xF;
+  50:	fec42783          	lw	a5,-20(s0)
+  54:	00f7f793          	andi	a5,a5,15
+  58:	fef42623          	sw	a5,-20(s0)
+
+0000005c <.L4>:
+  for (int i=0; i<2; i++) {
+  5c:	fe842783          	lw	a5,-24(s0)
+  60:	00178793          	addi	a5,a5,1
+  64:	fef42423          	sw	a5,-24(s0)
+
+00000068 <.L2>:
+  68:	fe842703          	lw	a4,-24(s0)
+  6c:	00100793          	li	a5,1
+  70:	fce7d0e3          	bge	a5,a4,30 <.L5>
+
+00000074 <.LBE2>:
+  74:	00000793          	li	a5,0
+    }
+
+  }
+
+  // printf("Result is %d and string is %c\n", b, a);
+}
+

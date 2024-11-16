@@ -19,16 +19,47 @@ parameter   ZERO = 0,
 //lshift 2
 always @(*) begin
     case (AluControl)
-    ADD:  ALUresult = scrA + scrB;
-    SUB:  ALUresult = scrA - scrB;
-    ANDD: ALUresult = scrA & scrB;
-    LSHIFT: ALUresult = scrA << scrB;
-    CMP: Flag[CMP_flag] = ((scrA ^ scrB) == {32{1'b0}}) ? 1'b1 : 1'b0;     //si son iguales el xor deberia resultar en 0. 
-    default: ALUresult = 0;
-    endcase
+    ADD:  begin 
+        ALUresult = scrA + scrB;
+        Flag[ZERO] = (ALUresult == 0) ? 1:0 ;
+        Flag[SIGN] = (ALUresult < 0) ? 1:0;
+    end 
 
-    if (ALUresult == 0) Flag[ZERO] = 1;   //source of error, as a and could leave me with a zero, or a default.
-    if (ALUresult < 0)  Flag[SIGN] = 1;   
+    SUB:  begin
+        ALUresult = scrA - scrB;
+        Flag[ZERO] = (ALUresult == 0) ? 1:0 ;
+        Flag[SIGN] = (ALUresult < 0) ? 1:0;
+        Flag[CMP_flag] = 0;
+    end
+    
+    ANDD: begin
+        ALUresult = scrA & scrB;
+        Flag[ZERO] = (ALUresult == 0) ? 1:0 ;
+        Flag[SIGN] = (ALUresult < 0) ? 1:0;
+        Flag[CMP_flag] = 0;
+    end
+
+    LSHIFT: begin
+        ALUresult = scrA << scrB;
+        Flag[ZERO] = (ALUresult == 0) ? 1:0 ;
+        Flag[SIGN] = (ALUresult < 0) ? 1:0;
+        Flag[CMP_flag] = 0;
+
+    end
+    
+    CMP: begin
+        ALUresult = (scrA ^ scrB);
+        Flag[CMP_flag] = ((scrA ^ scrB) == {32{1'b0}}) ? 1'b1 : 1'b0;     //si son iguales el xor deberia resultar en 0. 
+        Flag[ZERO] = (ALUresult == 0) ? 1:0 ;
+        Flag[SIGN] = (ALUresult < 0) ? 1:0;
+    end
+    default: begin
+        ALUresult = 0;
+        Flag[ZERO] =0;
+        Flag[SIGN] =0;
+        Flag[CMP_flag] = 0;
+    end 
+    endcase
 
 end
     

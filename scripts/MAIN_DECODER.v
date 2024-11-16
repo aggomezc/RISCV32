@@ -4,7 +4,7 @@ module Main_Decoder (
 
     
     output reg RegWrite,
-    output reg [1:0]  ImmSrc,
+    output reg [2:0]  ImmSrc,
     output reg ALU_src,
     output reg MemWrite,
     output reg [1:0] Result_src,
@@ -29,12 +29,17 @@ module Main_Decoder (
                COMPARE = 3'b100,
                LEFT_SHIFT = 3'b011;
 
+    parameter Imm_Src_I = 3'b000,
+             Imm_Src_S = 3'b001,
+             Imm_Src_B = 3'b010,
+             Imm_Src_J = 3'b011,
+             Imm_Src_U = 3'b100;
 
     always @(opcode or funct3) begin
         case (opcode)
             LOAD_W_B: begin
                 RegWrite = 1;
-                ImmSrc =   2'b00;
+                ImmSrc =   Imm_Src_I;
                 ALU_src =  1;
                 MemWrite = 0;
                 Result_src = 2'b01;
@@ -45,7 +50,7 @@ module Main_Decoder (
             
             STORE_W_B: begin
                 RegWrite = 0;
-                ImmSrc =   2'b01;
+                ImmSrc =   Imm_Src_S;
                 ALU_src =  1;
                 MemWrite = 1;
                 Result_src = 2'bxx;
@@ -57,7 +62,7 @@ module Main_Decoder (
 
             BRANCH: begin
                 RegWrite = 0;
-                ImmSrc =   2'b10;
+                ImmSrc =   Imm_Src_B;
                 ALU_src =  0;
                 MemWrite = 0;
                 Result_src = 2'bxx;
@@ -68,7 +73,7 @@ module Main_Decoder (
 
             I_TYPE: begin
                 RegWrite = 1;
-                ImmSrc =   2'b00;
+                ImmSrc =   Imm_Src_I;
                 ALU_src =  1;
                 MemWrite = 0;
                 Result_src = 2'b00;
@@ -79,7 +84,7 @@ module Main_Decoder (
 
             JAL: begin
                 RegWrite = 1;
-                ImmSrc =   2'b11;
+                ImmSrc =   Imm_Src_J;
                 ALU_src =  1'bx;
                 MemWrite = 0;
                 Result_src = 2'b10;
@@ -91,7 +96,7 @@ module Main_Decoder (
 
             LUI: begin
                 RegWrite = 1;
-                ImmSrc =   2'b11;
+                ImmSrc =   Imm_Src_U;
                 ALU_src =  1'bx;
                 MemWrite = 0;
                 Result_src = 2'bx;

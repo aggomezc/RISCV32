@@ -16,3 +16,16 @@ vvp OUTPUT-VCDFILES/Datapath_out
 gtkwave TB_Datapath.vcd
 
 Run the Main decoder testbench
+iverilog -o "OUTPUT-VCDFILES/Main_Decoder" Test\ Benches/TB_MAIN_DECODER.v 
+vvp OUTPUT-VCDFILES/Main_Decoder
+gtkwave TB_MainDecoder.vcd
+
+Run the alu decoder testbench
+iverilog -o "OUTPUT-VCDFILES/ALU_Decode" Test\ Benches/TB_Alu_Decode.v 
+vvp OUTPUT-VCDFILES/ALU_Decode
+gtkwave ALU_DECODE_TB.vcd
+
+Run the control unit testbench
+iverilog -o "OUTPUT-VCDFILES/TB_Control_Unit" Test\ Benches/TB_Control_Unit.v 
+vvp OUTPUT-VCDFILES/TB_Control_Unit
+gtkwave Control_Unit_TB.vcd
