@@ -8,11 +8,11 @@ Disassembly of section .text:
 
 int main(){
    0:	fe010113          	addi	sp,sp,-32
-   4:	00812e23          	sw	s0,28(sp)
+   4:	00812e23          	sw	    s0,28(sp)
    8:	02010413          	addi	s0,sp,32
   int *r = 0xC7DF;
    c:	0000c7b7          	lui	a5,0xc
-  10:	7df78793          	addi	a5,a5,2015 # c7df <.LASF13+0xc745>
+  10:	7df78793          	addi	a5,a5,20
   14:	fef42223          	sw	a5,-28(s0)
   char a = 'c';
   18:	06300793          	li	a5,99

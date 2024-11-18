@@ -14,6 +14,10 @@ module Datapath (
     input CLK,
     input Reset    
 );
+
+task Dump_mem;
+    DataMemory.print_memory();
+endtask
 //wires que conectan componentes datapath
 //se limitan a transmitir datos de algun tipo
 //reg [31:0] PC;
@@ -30,6 +34,7 @@ wire [31:0] PC_plus_4;
 wire [31:0] PCTarget;
 wire [31:0] Result_wire;
 wire [31:0] Read_Mem_Data;
+//wire [7:0] MEMORY_ARRAY [1024:0];
 //wire que llevan las unidades de control 
 wire PCSrc;
 wire [1:0] Result_Src;

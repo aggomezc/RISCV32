@@ -22,8 +22,9 @@ module TB_Datapath;
 
         Reset = 1;
         CLK = 0;
-        #1 Reset =0; 
-        #120 $finish;
+        #1 Reset =0;
+        #119 UUT.Dump_mem();
+        #1 $finish;
     end    
     
     always #2 CLK = ~CLK;

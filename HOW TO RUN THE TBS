@@ -11,7 +11,7 @@ gtkwave TB_EXTENDER.vcd
 
 
 Run the Datapath (finished proyect) testbench:
-iverilog -o "OUTPUT-VCDFILES/Datapath_out" Test\ Benches/TB_Datapath.v 
+iverilog -g2012 -o "OUTPUT-VCDFILES/Datapath_out" Test\ Benches/TB_Datapath.v 
 vvp OUTPUT-VCDFILES/Datapath_out
 gtkwave TB_Datapath.vcd
 

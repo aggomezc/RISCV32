@@ -5,12 +5,29 @@ module DynamicMemory(
     input [31:0] ADDRESS,
     input [31:0] WRITE_DATA,  
     output reg [31:0] READ_DATA
+    
     //Lectura asíncrona y escritura sincrona
 );
     parameter sw = 2;
     parameter sb = 0;
     reg [7:0] MEMORY_ARRAY [1024:0];
 
+task print_memory;
+    reg[1024:0] file;
+    integer i;
+    file = $fopen("MemDUMP.txt", "w");
+    if (file == 0) begin
+        $display("Error opening file");
+        $finish;
+    end
+
+    $fwrite(file, "Memory contents:\n");
+    for (i = 0; i < 1024; i++) begin
+        $fwrite(file, "%h\n", MEMORY_ARRAY[i]);
+    end
+
+    $fclose(file);
+endtask
     //Sdifferentiate that
     always @(posedge CLK ) begin
         if (WE && funct3 == sw) begin //If we have a store word
