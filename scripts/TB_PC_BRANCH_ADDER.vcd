@@ -1,0 +1,65 @@
+$date
+	Thu Nov 21 14:30:30 2024
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module TB_PC_BRANCH_ADDER $end
+$var wire 32 ! pc [31:0] $end
+$var reg 32 " PC_itself [31:0] $end
+$var reg 32 # branch_offset [31:0] $end
+$scope module uut $end
+$var wire 32 $ PC_itself [31:0] $end
+$var wire 32 % branch_offset [31:0] $end
+$var wire 32 & pc [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b1 &
+b100 %
+b0 $
+b100 #
+b0 "
+b1 !
+$end
+#10
+b10010 !
+b10010 &
+b1000 #
+b1000 %
+b10000 "
+b10000 $
+#20
+b1111111011111111 !
+b1111111011111111 &
+b11111111111111111111111111111100 #
+b11111111111111111111111111111100 %
+b1111111100000000 "
+b1111111100000000 $
+#30
+b11 !
+b11 &
+b10000 #
+b10000 %
+b1111111111111111 "
+b1111111111111111 $
+#40
+b1111111100000001 !
+b1111111100000001 &
+b100 #
+b100 %
+b11111111111111111111111100000000 "
+b11111111111111111111111100000000 $
+#50
+b0 !
+b0 &
+b0 #
+b0 %
+b0 "
+b0 $
+#60

@@ -18,12 +18,13 @@ module REGISTERFILE (
     output reg [31:0] RD1, RD2;
     integer i;
     initial begin
-		REGISTER_ARRAY[0] = 0;
-        for(i=0; i<=31; i = i+1) begin
+        for(i=1; i<=31; i = i+1) begin
             REGISTER_ARRAY[i]=i+100;
         end
+        REGISTER_ARRAY[0] = 0;
     end
     //SW utiliza como funct3
+    
 
     reg [31:0] REGISTER_ARRAY [31:0];
     //LECTURA ASINCRONA
@@ -37,7 +38,7 @@ module REGISTERFILE (
 
     //escritura sincrona
     always @(posedge CLK ) begin
-        if (EN && (A3 != 0)) begin    //x0 est 0
+        if (EN && (A3 != 5'b00000)) begin    //x0 est 0
             REGISTER_ARRAY[A3] <= WD3;
         end
     

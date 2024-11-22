@@ -2,7 +2,6 @@ module Main_Decoder (
     input [6:0] opcode,
     input [2:0] funct3,
 
-    
     output reg RegWrite,
     output reg [2:0]  ImmSrc,
     output reg ALU_src,
@@ -10,7 +9,8 @@ module Main_Decoder (
     output reg [1:0] Result_src,
     output reg Branch,
     output reg [2:0] ALU_op,
-    output reg Jump
+    output reg Jump,
+    output reg WriteRegisterData_Src
 
 );
     parameter  LOAD_W_B = 7'b0000011,
@@ -20,13 +20,11 @@ module Main_Decoder (
                I_TYPE = 7'b0010011,
                JAL = 7'b1101111, //porque un Jump es un JAl con rd=0
                LUI = 7'b0110111;
-    parameter FUNCT3_BRANCH_GE = 3'b101,
-              FUNCT3_BRANCH_NEQ = 3'b001;
+
 
     parameter SPECIAL = 3'b111,
                ADD = 3'b000,
                SUB = 3'b001,
-               COMPARE = 3'b100,
                LEFT_SHIFT = 3'b011;
 
     parameter Imm_Src_I = 3'b000,
@@ -46,6 +44,8 @@ module Main_Decoder (
                 Branch =  0 ;
                 ALU_op = ADD;
                 Jump = 0;
+                WriteRegisterData_Src = 0;
+                
             end
             
             STORE_W_B: begin
@@ -57,6 +57,7 @@ module Main_Decoder (
                 Branch =  0 ;
                 ALU_op = ADD;
                 Jump = 0;
+                WriteRegisterData_Src = 0;
             end
 
 
@@ -67,8 +68,9 @@ module Main_Decoder (
                 MemWrite = 0;
                 Result_src = 2'bxx;
                 Branch =  1 ;
-                ALU_op =  (funct3 == 001) ? 3'b100 : 3'b001; //se elige el tipo de branch que se tiene que realizar
+                ALU_op = 3'b001;
                 Jump = 0;
+                WriteRegisterData_Src = 0;
             end
 
             I_TYPE: begin
@@ -80,6 +82,7 @@ module Main_Decoder (
                 Branch =  0 ;
                 ALU_op =   3'b111;
                 Jump = 0;
+                WriteRegisterData_Src = 0;
             end
 
             JAL: begin
@@ -91,6 +94,7 @@ module Main_Decoder (
                 Branch =  0 ;
                 ALU_op =   3'bxxx; //unconditional jump here
                 Jump = 1;
+                WriteRegisterData_Src = 0;
             end
 
 
@@ -103,18 +107,32 @@ module Main_Decoder (
                 Branch =  0 ;
                 ALU_op =   3'bxxx;
                 Jump = 0;
+                WriteRegisterData_Src = 1;
             end
             
             default: begin
                 RegWrite = 1;
-                ImmSrc =   2'b00;
+                ImmSrc =   3'b000;
                 ALU_src =  1;
                 MemWrite = 0;
                 Result_src = 2'b01;
                 Branch =  0 ;
                 ALU_op = 3'bxxx;
                 Jump = 0;
+                WriteRegisterData_Src = 0;
             end
         endcase
     end
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+

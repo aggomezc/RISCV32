@@ -37,7 +37,7 @@ endtask
             MEMORY_ARRAY[ADDRESS+3] <= WRITE_DATA[7:0];
         end
         // if we have a store byte
-        if (WE && funct3 == sb) begin
+        else if (WE && funct3 == sb) begin
             MEMORY_ARRAY[ADDRESS] <= WRITE_DATA[7:0]; //CRITICAL
             //I DID THIS CONSIDERING CONSIDERING A BIG ENDIAN STRUCTURE
 

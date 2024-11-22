@@ -7,7 +7,6 @@ module ALU_DECODE (
   parameter SPECIAL = 3'b111,
             ADD = 3'b000,
             SUB = 3'b001,
-            COMPARE = 3'b100,
             LEFT_SHIFT = 3'b011,
             ANDD = 3'b010;
 
@@ -18,11 +17,11 @@ module ALU_DECODE (
                     ALU_Control = ADD;
                 end    
 
-                if (funct3 == 1) begin
+                else if (funct3 == 1) begin
                     ALU_Control = LEFT_SHIFT;
                 end
                 
-                if (funct3 == 8) begin
+                else if (funct3 == 7) begin
                     ALU_Control = ANDD;
                 end
             end 
@@ -30,7 +29,6 @@ module ALU_DECODE (
             3'b000: begin
                 ALU_Control = ADD;
             end
-            3'b100: ALU_Control = COMPARE;
             3'b001: ALU_Control = SUB; 
 
             default: ALU_Control = ADD;

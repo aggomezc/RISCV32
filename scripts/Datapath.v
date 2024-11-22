@@ -29,7 +29,7 @@ wire [31:0] SrcA_wire;
 wire [31:0] Reg2_output;
 wire [31:0] SrcB_wire;
 wire [31:0] ALUResult_wire;
-wire [2:0] ALU_Flags;
+wire [1:0] ALU_Flags;
 wire [31:0] PC_plus_4;
 wire [31:0] PCTarget;
 wire [31:0] Result_wire;
@@ -43,7 +43,8 @@ wire [2:0] ALU_CONTROL_wire;
 wire ALU_Src;
 wire [2:0] Imm_src;
 wire RegWrite_EN;
-
+wire WriteRegisterData_Src_Intermediate;
+wire [31:0] Write_Data_to_mux_after_the_mux;
 //should be 12 elements
 // initial begin
 //     PC = 32'b0;
@@ -64,7 +65,7 @@ REGISTERFILE Register_File(
     .A1(Instruction[19:15]), //dir reg 1
     .A2(Instruction[24:20]), //dir reg 2
     .A3(Instruction[11:7]), ////dir reg to write
-    .WD3(Result_wire), //write data
+    .WD3(Write_Data_to_mux_after_the_mux), //write data
     .RD1(SrcA_wire), // data read from reg 1
     .RD2(Reg2_output), // data read from reg 2
     .EN(RegWrite_EN)  //// ENABLE read
@@ -100,8 +101,8 @@ Control_Unit ControlUnit(
     .MemWrite(MemWrite_Enable),
     .Result_src(Result_Src),
     .PC_Src(PCSrc),
-    .ALU_Control(ALU_CONTROL_wire)
-
+    .ALU_Control(ALU_CONTROL_wire),
+    .WriteRegisterData_Src(WriteRegisterData_Src_Intermediate)
 );
 
 MUX3 Result_Mux(
@@ -124,6 +125,13 @@ MUX2 PCNEXT_Mux(
     .b(PCTarget),
     .sel(PCSrc),
     .out(PCnext)
+);
+
+MUX2 WriteRegisterData_MUX(
+    .a(Result_wire),
+    .b(Extended_Imm),
+    .sel(WriteRegisterData_Src_Intermediate),
+    .out(Write_Data_to_mux_after_the_mux)
 );
 
 

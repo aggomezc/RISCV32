@@ -29,3 +29,22 @@ Run the control unit testbench
 iverilog -o "OUTPUT-VCDFILES/TB_Control_Unit" Test\ Benches/TB_Control_Unit.v 
 vvp OUTPUT-VCDFILES/TB_Control_Unit
 gtkwave Control_Unit_TB.vcd
+
+Run the DRAM testbench
+iverilog -o "OUTPUT-VCDFILES/tb_DynamicMemory" Test\ Benches/tb_DynamicMemory.v 
+vvp OUTPUT-VCDFILES/tb_DynamicMemory
+gtkwave tb_DynamicMemory.vcd
+
+
+Run the PC BRanch adder testbench
+iverilog -o "OUTPUT-VCDFILES/TB_PC_BRANCH_ADDER" Test\ Benches/TB_PC_BRANCH_ADDER.v 
+vvp OUTPUT-VCDFILES/TB_PC_BRANCH_ADDER
+gtkwave TB_PC_BRANCH_ADDER.vcd
+
+
+
+
+
+
+
+

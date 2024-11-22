@@ -1,10 +1,10 @@
 `include "MAIN_DECODER.v"
 `include "ALU_DECODE.v"
-
+`include "/home/carnifex/Desktop/S VI/Microprocesors/Proyect/RISCV_CPU/scripts/BranchEncoder.v"
 module Control_Unit (
     input [2:0] funct3,
     input [6:0] opcode,
-    input [2:0] ALU_flags,
+    input [1:0] ALU_flags,
 
     output  RegWrite,
     output [2:0]  ImmSrc,
@@ -12,18 +12,19 @@ module Control_Unit (
     output MemWrite,
     output [1:0] Result_src,
     output PC_Src,
-    output [2:0] ALU_Control
+    output [2:0] ALU_Control,
+    output WriteRegisterData_Src
 );
     parameter   ZERO = 0,
-                SIGN = 1,
-            CMP_flag = 2;
+                SIGN = 1;
+ 
 
     wire [2:0] ALU_op;
     wire Branch;
     wire Jump;
     wire PC_Src;
-
-
+    wire EncodedBranch;
+    wire WriteRegisterData_Src_Intermediate;
     wire  RegWrite_intermediate;
     wire [2:0]  ImmSrc_intermediate;
     wire ALU_src_intermediate;
@@ -37,12 +38,17 @@ module Control_Unit (
     assign MemWrite = MemWrite_intermediate;
     assign Result_src = Result_src_intermediate;
     assign ALU_Control = ALU_Control_intermediate;
+    assign WriteRegisterData_Src = WriteRegisterData_Src_Intermediate;
+
     
-    assign PC_Src = (ALU_flags[ZERO] & Branch) + 
-                    (~ALU_flags[SIGN] & Branch) + 
-                    (ALU_flags[CMP_flag] & Branch) + 
-                    Jump;
+    assign PC_Src = (~EncodedBranch & Branch & ALU_flags[ZERO]) |
+    (~EncodedBranch & Branch & ~ALU_flags[SIGN]) |
+    (EncodedBranch & Branch & ~ALU_flags[ZERO]) |
+    Jump;
     
+
+    
+                    
     Main_Decoder main_decoder (
         .opcode(opcode),
         .funct3(funct3),
@@ -53,11 +59,16 @@ module Control_Unit (
         .Result_src(Result_src_intermediate),
         .Branch(Branch),
         .ALU_op(ALU_op),
-        .Jump(Jump)
+        .Jump(Jump),
+        .WriteRegisterData_Src(WriteRegisterData_Src_Intermediate)
     );
     ALU_DECODE Alu_decode(
         .ALUOP(ALU_op),
         .funct3(funct3),
         .ALU_Control(ALU_Control_intermediate)
+    );
+    BranchEncoder BranchEncoding(
+        .funct3(funct3),
+        .Encoded_Branch(EncodedBranch)
     );
 endmodule
