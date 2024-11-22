@@ -1,5 +1,9 @@
 module BranchEncoder (
-    input [2:0] funct3,
+    //para diferenciar entre los dos branches, y evitar que
+    //la logica de uno interfiera en el otro, se implementa esta
+//codificacion del Branch.El sentido de esta decision se vuelve claro
+//al analizar la logica que rige a pcsource
+    input [2:0] funct3, //funct3 de la instruccion que se esta ejecutando
 
     output reg Encoded_Branch
 );

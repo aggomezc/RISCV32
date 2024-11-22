@@ -1,4 +1,4 @@
-`include "ALU_DECODE.v" // Incluir el módulo ALU_DECODE a testear
+`include "ALU_DECODE.v" 
 
 module ALU_DECODE_TB();
     // Declaración de señales de prueba
@@ -18,10 +18,42 @@ module ALU_DECODE_TB();
         $dumpfile("ALU_DECODE_TB.vcd"); // Archivo de salida para la simulación
         $dumpvars(0, ALU_DECODE_TB);    // Volcar todas las variables del módulo para trazado
 
-        // Prueba 1: Configuración inicial de señales
-        ALUOP = 3'b100;        // Asignar valor inicial a ALUOP
-        funct3 = 3'b001;       // Asignar valor inicial a funct3
+        // Objetivo de la prueba:
+        // Validar que el módulo ALU_DECODE produce correctamente la salida ALU_Control
+        // para todas las combinaciones significativas de ALUOP y funct3.
 
-        #1 $finish;            // Finalizar la simulación después de 1 unidad de tiempo
+        // Estímulos: 
+        // Prueba 1: Caso SPECIAL con ADD
+        ALUOP = 3'b111;        
+        funct3 = 3'b000;       // Se espera ALU_Control = 3'b000
+        #10;
+
+        // Prueba 2: Caso SPECIAL con LEFT_SHIFT
+        ALUOP = 3'b111;        
+        funct3 = 3'b001;       // Se espera ALU_Control = 3'b011
+        #10;
+
+        // Prueba 3: Caso SPECIAL con ANDD
+        ALUOP = 3'b111;        
+        funct3 = 3'b111;       // Se espera ALU_Control = 3'b010
+        #10;
+
+        // Prueba 4: Caso ADD cuando ALUOP es 000
+        ALUOP = 3'b000;        
+        funct3 = 3'b101;       // Se espera ALU_Control = 3'b000
+        #10;
+
+        // Prueba 5: Caso SUB cuando ALUOP es 001
+        ALUOP = 3'b001;        
+        funct3 = 3'b010;       // Se espera ALU_Control = 3'b001
+        #10;
+
+        // Prueba 6: Caso DEFAULT
+        ALUOP = 3'b010;        
+        funct3 = 3'b101;       // Se espera ALU_Control = 3'b000
+        #10;
+
+        // Finalizar simulación
+        $finish;
     end
 endmodule

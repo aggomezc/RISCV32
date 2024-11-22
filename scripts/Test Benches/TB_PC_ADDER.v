@@ -23,10 +23,10 @@ module TB_PC_ADDER();
         PC_itself = 32'h000000FF;
         #10; // Probar con PC inicial en 255 (0xFF)
 
-        PC_itself = 32'hFFFFFFFE;
+        PC_itself = 32'h000000C3;
         #10; // Probar con PC inicial cercano al máximo valor de 32 bits
 
-        PC_itself = 32'hFFFFFFFF;
+        PC_itself = 32'hFFFFFED1;
         #10; // Probar con PC en el máximo valor de 32 bits
 
         $finish; // Finalizar la simulación

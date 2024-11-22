@@ -1,5 +1,20 @@
 `include "INSTR_MEM.v" // Incluir el módulo INSTR_MEM (memoria de instrucciones) a testear
+////////////////////////////////////////////////////////////
+// Banco de Pruebas: INSTR_MEM_TB
+// Objetivo de la prueba:
+// Verificar que el módulo MEM lee correctamente las instrucciones
+// desde la memoria en función de diferentes valores del contador
+// de programa (PC).
 
+// Estímulos:
+// - Variar la señal PC para diferentes direcciones de memoria.
+// - Generar flancos de reloj para simular el comportamiento síncrono.
+
+// Descripción de resultados esperados:
+// - La salida `Inst` debe contener la instrucción correcta almacenada
+//   en la dirección especificada por `PC`.
+// - Se verificará que las instrucciones leídas coinciden con las
+//   cargadas en la memoria desde el archivo de instrucciones.
 module INSTR_MEM_TB;
     // Declaración de señales de prueba
     reg clk;               // Señal de reloj
@@ -12,13 +27,16 @@ module INSTR_MEM_TB;
         .PC(PC),            // Conexión de la entrada PC
         .Instr(Inst)        // Conexión de la salida Inst
     );
-
-    // Bloque inicial para configurar las pruebas
+    
+    
     initial begin
         $dumpfile("MEM_TEST.vcd"); // Archivo de salida para la simulación
         $dumpvars(0, INSTR_MEM_TB); // Volcar todas las variables del módulo para trazado
 
-        // Inicialización del reloj
+        // El reloj se va accionando, se incrementa el PC.clk
+        // de esta manera, se revisa la lectura en los flancos
+        // y si se leyó correctamente los contenidos del archivo
+        // de instrucciones
         clk = 0; // Inicializar el reloj en 0
 
         // Prueba 1: Leer instrucción en la dirección 1
@@ -40,6 +58,4 @@ module INSTR_MEM_TB;
         #1 $finish; // Terminar la simulación después de ejecutar las pruebas
     end
 
-    // Generación del reloj (alternativa, comentada)
-    // always #5 clk = ~clk; // Alternar el reloj cada 5 unidades de tiempo (periodo = 10)
 endmodule
